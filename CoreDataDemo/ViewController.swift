@@ -95,7 +95,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let item = models[indexPath.row]
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: "Delete") { _, _, _ in
+            self.deleteItem(item: item)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipeAction
+    }
     //MARK: - CoreData
     func getAllItem() {
         do {
